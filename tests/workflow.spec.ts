@@ -32,7 +32,7 @@ test.describe('Workflow testing', () => {
     await expect(page).toHaveTitle(/Palazzo Pant - Black/);
 
     // Cookies (workflow changes slightly on Github actions)
-    await page.getByRole('button', { name: process.env.CI ? 'Accept Cookies' : 'Accept All Cookies' }).click();
+    await page.getByRole('button', { name: /Accept (All )?Cookies/g }).click();
     if (process.env.CI) await page.getByRole('button', { name: 'Continue to shop' }).click();
 
   });

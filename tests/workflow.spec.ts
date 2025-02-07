@@ -32,7 +32,16 @@ test.describe('Workflow testing', () => {
     await expect(page).toHaveTitle(/Palazzo Pant - Black/);
 
     // Cookies
-    await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+    process.env.CI
+      ? async () => {
+        // Github actions workflow
+        await page.getByRole('button', { name: 'Accept Cookies' }).click();
+        await page.getByRole('button', { name: 'Continue to shop' }).click();
+      }
+      : async () => {
+        // Local workflow
+        await page.getByRole('button', { name: 'Accept All Cookies' }).click()
+      }
 
   });
 

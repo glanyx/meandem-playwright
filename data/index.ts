@@ -1,0 +1,1 @@
+export { default as USER_DATA } from './data'

@@ -31,17 +31,9 @@ test.describe('Workflow testing', () => {
     // Expect a title "to contain" a substring.
     await expect(page).toHaveTitle(/Palazzo Pant - Black/);
 
-    // Cookies
-    process.env.CI
-      ? async () => {
-        // Github actions workflow
-        await page.getByRole('button', { name: 'Accept Cookies' }).click();
-        await page.getByRole('button', { name: 'Continue to shop' }).click();
-      }
-      : async () => {
-        // Local workflow
-        await page.getByRole('button', { name: 'Accept All Cookies' }).click()
-      }
+    // Cookies (workflow changes slightly on Github actions)
+    await page.getByRole('button', { name: process.env.CI ? 'Accept Cookies' : 'Accept All Cookies' }).click();
+    if (process.env.CI) await page.getByRole('button', { name: 'Continue to shop' }).click();
 
   });
 

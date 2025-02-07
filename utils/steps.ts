@@ -54,7 +54,7 @@ const checkoutAsGuest = async (page: Page) => {
   await test.step('Checkout as guest', async () => {
     // Part 1. (Use guest checkout)
     await page.getByRole('button', { name: 'Continue as Guest' }).click();
-    await page.getByRole('textbox', { name: 'Email Address*' }).fill(USER_DATA.email);
+    await page.getByTestId('signInOrRegister').getByRole('textbox', { name: 'Email Address*' }).fill(USER_DATA.email);
     await page.getByRole('button', { name: 'Continue to Delivery' }).click();
     await expect(page.getByText('Guest details complete').locator('svg')).toBeVisible();
   })
